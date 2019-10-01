@@ -1,3 +1,2 @@
 # Protocolo Etherntet
-Protocolo ethernet para compartir archivos
-Utiliza la biblioteca jnetpcap
+Protocolo ethernet para compartir archivos, utiliza la biblioteca jnetpcap
