@@ -99,6 +99,7 @@ public class Main {
                 PcapSockAddr direccion1 =dir.getAddr();
                 byte[]d_ip = direccion1.getData(); //esta sera la ip origen
                 int familia=direccion1.getFamily();
+                System.out.printf("%d", familia);
                 int[]ipv4_1 = new int[4];
                 if(familia==org.jnetpcap.PcapSockAddr.AF_INET){
                     ipv4_1[0]=((int)d_ip[0]<0)?((int)d_ip[0])+256:(int)d_ip[0];
@@ -130,8 +131,16 @@ public class Main {
              *******************************************************/
             byte[] trama = new byte[64];
 
+            trama[0] = (byte) 0x58;
+            trama[1] = (byte) 0x00;
+            trama[2] = (byte) 0xe3;
+            trama[3] = (byte) 0xbc;
+            trama[4] = (byte) 0xe5;
+            trama[5] = (byte) 0x1d;
+
+
             for(int k=0;k<MACo.length;k++){
-                trama[k] = (byte) 0xff;
+                //trama[k] = (byte) 0xff;
                 trama[k+6]=MACo[k];
             }//for
 
@@ -152,7 +161,10 @@ public class Main {
 
             trama[12]= (byte) 0x16; //tipo sin asignar
             trama[13]= (byte) 0x01; //tipo sin asignar rfc 1340
-            String mensaje= "Un breve mensaje";
+            String ruta = "C:\\Users\\Alumno\\Documents\\hola.txt";
+            leerArchivo fileIn = new leerArchivo(ruta);
+            String mensaje = fileIn.returnString();
+
             byte[]buf = mensaje.getBytes();
             int tam = buf.length;
             if(tam<50){
